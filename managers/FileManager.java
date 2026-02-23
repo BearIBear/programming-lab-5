@@ -20,21 +20,17 @@ public class FileManager {
 
     public FileManager(String fileName) {
         this.fileName = fileName;
-        
-        // Настраиваем Gson, чтобы он красиво выводил JSON и умел работать с LocalDate
         this.gson = new GsonBuilder()
-                .setPrettyPrinting() // Для красивого вывода с переносами строк
+                .setPrettyPrinting()
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
     }
 
-    // Метод для чтения из файла
     public void load(CollectionManager collectionManager) {
         if (fileName == null || fileName.isEmpty()) {
             System.out.println("ВНИМАНИЕ: Переменная окружения с именем файла не найдена!");
             return;
         }
-
         File file = new File(fileName);
         if (!file.exists()) {
             System.out.println("Файл " + fileName + " не найден. Будет создана пустая коллекция.");
@@ -45,7 +41,6 @@ public class FileManager {
             return;
         }
 
-        // По заданию читаем через java.util.Scanner
         try (Scanner fileScanner = new Scanner(file)) {
             StringBuilder jsonString = new StringBuilder();
             while (fileScanner.hasNextLine()) {
@@ -57,7 +52,6 @@ public class FileManager {
                 return;
             }
 
-            // Указываем Gson'у, в какой именно тип данных нужно превратить строку JSON
             Type collectionType = new TypeToken<PriorityQueue<MusicBand>>() {}.getType();
             PriorityQueue<MusicBand> loadedCollection = gson.fromJson(jsonString.toString(), collectionType);
 
@@ -75,7 +69,6 @@ public class FileManager {
         }
     }
 
-    // Метод для записи в файл
     public void save(CollectionManager collectionManager) {
         if (fileName == null || fileName.isEmpty()) {
             System.out.println("Ошибка: Имя файла не указано. Сохранение невозможно.");
@@ -92,7 +85,6 @@ public class FileManager {
                 return;
             }
 
-            // По заданию сохраняем через java.io.FileOutputStream
             try (FileOutputStream fos = new FileOutputStream(file)) {
                 String json = gson.toJson(collectionManager.getCollection());
                 fos.write(json.getBytes());
@@ -104,7 +96,6 @@ public class FileManager {
         }
     }
 
-    // Внутренний класс-адаптер для того, чтобы Gson понимал Java 8 LocalDate
     private static class LocalDateAdapter implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> {
         private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 

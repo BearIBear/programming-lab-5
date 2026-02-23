@@ -8,15 +8,16 @@ import managers.*;
 class Main {
     public static void main(String[] args) {
         Scanner console = new Scanner(System.in);
+
         String fileName = System.getenv("INPUT_FILENAME");
-        if (fileName == null || fileName.isEmpty()) {
+        if (fileName == null || fileName.isBlank()) {
             System.out.println("ВНИМАНИЕ: Переменная окружения INPUT_FILENAME не задана.");
             System.out.println("Будет использован файл по умолчанию: Data.json");
             fileName = "Data.json";
         }
 
         CollectionManager collectionManager = new CollectionManager();
-        FileManager fileManager = new FileManager(System.getenv("INPUT_FILENAME"));
+        FileManager fileManager = new FileManager(fileName);
         fileManager.load(collectionManager);
 
         Map<String, Command> commandsList = new HashMap<>();
@@ -27,7 +28,7 @@ class Main {
         commandsList.put("save", new Save(collectionManager, fileManager));
 
         System.out.print("> ");
-        while (console.hasNextLine()) {
+        while (true) {
             String input = console.nextLine().trim();
             String[] tokens = input.split(" ");
             String commandName = tokens[0];
