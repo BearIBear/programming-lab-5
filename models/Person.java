@@ -8,10 +8,10 @@ public class Person {
 
     public Person(String name, LocalDate birthday, Color eyeColor) {
         if (name == null) {
-            throw new RuntimeException("Значение аргумента name не может быть null"); // TODO: Заменить на Exception
+            throw new RuntimeException("name не может быть null");
         }
         if (name.isBlank()) {
-            throw new RuntimeException("Значение аргумента name не может быть пустым");
+            throw new RuntimeException("name не может быть пустым");
         }
         this.name = name;
         this.birthday = birthday;
@@ -28,5 +28,10 @@ public class Person {
 
     public Color getEyeColor() {
         return eyeColor;
+    }
+
+    @Override
+    public String toString() {
+        return "Person [name=" + name + ", birthday=" + birthday + ", eyeColor=" + eyeColor + "]";
     }
 }

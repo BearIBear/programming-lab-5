@@ -1,0 +1,8 @@
+{
+    "java.project.sourcePaths": [
+        "."
+    ],
+    "java.project.referencedLibraries": [
+        "d:\\ITMO\\Programming\\programming-lab-5\\lib\\gson-2.13.2.jar"
+    ]
+}

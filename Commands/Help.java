@@ -1,13 +1,15 @@
-package Commands;
+package commands;
+
+import managers.CollectionManager;
 
 public class Help extends Command {
-    public Help() {
-        super("help", "вывести справку по доступным командам");
+    public Help(CollectionManager collectionManager) {
+        super("help", "вывести справку по доступным командам", collectionManager);
     }
 
     @Override
     public void run() {
-        System.out.print(
+        System.out.println(
             "help : вывести справку по доступным командам\n" + 
             "info : вывести в стандартный поток вывода информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)\n" + 
             "show : вывести в стандартный поток вывода все элементы коллекции в строковом представлении\n" + 

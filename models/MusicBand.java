@@ -2,7 +2,7 @@ package models;
 import java.time.Instant;
 import java.util.Date;
 
-public class MusicBand {
+public class MusicBand implements Comparable<MusicBand> {
     private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
@@ -17,30 +17,30 @@ public class MusicBand {
     public MusicBand(String name, Coordinates coordinates, long numberOfParticipants, long singlesCount,
             String description, MusicGenre genre, Person frontMan) {
         this.id = nextId++;
-        if (name == null) {
-            throw new RuntimeException("Значение аргумента name не может быть null"); // TODO: Заменить на Exception
+        if (name == null || name.equals("")) {
+            throw new RuntimeException("name не может быть null");
         }
         if (name.isBlank()) {
-            throw new RuntimeException("Значение аргумента name не может быть пустым");
+            throw new RuntimeException("name не может быть пустым");
         }
         this.name = name;
         if (coordinates == null) {
-            throw new RuntimeException("Значение аргумента coordinates не может быть null");
+            throw new RuntimeException("coordinates не может быть null");
         }
         this.coordinates = coordinates;
         this.creationDate = Date.from(Instant.now());
         if (numberOfParticipants < 1) {
-            throw new RuntimeException("Значение аргумента numberOfParticipants должно быть больше 0");
+            throw new RuntimeException("numberOfParticipants должно быть больше 0");
         }
         this.numberOfParticipants = numberOfParticipants;
         if (singlesCount < 1) {
-            throw new RuntimeException("Значение аргумента singlesCount должно быть больше 0");
+            throw new RuntimeException("singlesCount должно быть больше 0");
         }
         this.singlesCount = singlesCount;
         this.description = description;
         this.genre = genre;
         if (frontMan == null) {
-            throw new RuntimeException("Значение аргумента frontMan не может быть null");
+            throw new RuntimeException("frontMan не может быть null");
         }
         this.frontMan = frontMan;
     }
@@ -79,5 +79,17 @@ public class MusicBand {
 
     public Person getFrontMan() {
         return frontMan;
+    }
+
+    @Override
+    public String toString() {
+        return "MusicBand [id=" + id + ", name=" + name + ", coordinates=" + coordinates + ", creationDate="
+                + creationDate + ", numberOfParticipants=" + numberOfParticipants + ", singlesCount=" + singlesCount
+                + ", description=" + description + ", genre=" + genre + ", frontMan=" + frontMan + "]";
+    }
+
+    @Override
+    public int compareTo(MusicBand other) {
+        return this.name.compareTo(other.name);
     }
 }

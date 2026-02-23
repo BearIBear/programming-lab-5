@@ -5,10 +5,10 @@ public class Coordinates {
 
     public Coordinates(Long x, float y) {
         if (x == null) {
-            throw new RuntimeException("Значение аргумента x не может быть null"); // TODO: Заменить на Exception
+            throw new RuntimeException("x не может быть null");
         }
         if (x > 432) {
-            throw new RuntimeException("Значение аргумента x не может превышать 432");
+            throw new RuntimeException("x не может превышать 432");
         }
         this.x = x;
         this.y = y;
@@ -21,4 +21,10 @@ public class Coordinates {
     public float getY() {
         return y;
     }
+
+    @Override
+    public String toString() {
+        return "Coordinates [x=" + x + ", y=" + y + "]";
+    }
+    
 }
