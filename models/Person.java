@@ -1,0 +1,32 @@
+package models;
+import java.time.LocalDate;
+
+public class Person {
+    private String name; //Поле не может быть null, Строка не может быть пустой
+    private java.time.LocalDate birthday; //Поле может быть null
+    private Color eyeColor; //Поле может быть null
+
+    public Person(String name, LocalDate birthday, Color eyeColor) {
+        if (name == null) {
+            throw new RuntimeException("Значение аргумента name не может быть null"); // TODO: Заменить на Exception
+        }
+        if (name.isBlank()) {
+            throw new RuntimeException("Значение аргумента name не может быть пустым");
+        }
+        this.name = name;
+        this.birthday = birthday;
+        this.eyeColor = eyeColor;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public java.time.LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public Color getEyeColor() {
+        return eyeColor;
+    }
+}
