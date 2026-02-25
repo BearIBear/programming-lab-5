@@ -2,6 +2,9 @@ package managers;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+
 import models.MusicBand;
 
 import java.io.File;
@@ -10,7 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+// import java.time.format.DateTimeFormatter;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
@@ -28,16 +31,17 @@ public class FileManager {
 
     public void load(CollectionManager collectionManager) {
         if (fileName == null || fileName.isEmpty()) {
-            System.out.println("ВНИМАНИЕ: Переменная окружения с именем файла не найдена!");
+            System.out.println("Имя файла не указано, загрузки не будет");
             return;
         }
+
         File file = new File(fileName);
         if (!file.exists()) {
-            System.out.println("Файл " + fileName + " не найден. Будет создана пустая коллекция.");
+            System.out.println("Файла " + fileName + " нет");
             return;
         }
         if (!file.canRead()) {
-            System.out.println("Ошибка: Нет прав на чтение файла " + fileName);
+            System.out.println("Нет прав на чтение файла " + fileName);
             return;
         }
 
@@ -48,7 +52,7 @@ public class FileManager {
             }
 
             if (jsonString.length() == 0) {
-                System.out.println("Файл пуст. Коллекция будет пустой.");
+                System.out.println("Файл пустой, коллекций нет");
                 return;
             }
 
@@ -59,19 +63,18 @@ public class FileManager {
                 for (MusicBand band : loadedCollection) {
                     collectionManager.addElement(band);
                 }
-                System.out.println("Коллекция успешно загружена! Загружено элементов: " + loadedCollection.size());
+                System.out.println("Файл загружен, количество банд: " + loadedCollection.size());
             }
-
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден: " + e.getMessage());
         } catch (JsonSyntaxException e) {
-            System.out.println("Ошибка синтаксиса JSON. Файл поврежден или содержит некорректные данные.");
+            System.out.println("Неправильный JSON");
         }
     }
 
     public void save(CollectionManager collectionManager) {
         if (fileName == null || fileName.isEmpty()) {
-            System.out.println("Ошибка: Имя файла не указано. Сохранение невозможно.");
+            System.out.println("Имя файла не указано, сохранения не будет");
             return;
         }
 
@@ -96,17 +99,30 @@ public class FileManager {
         }
     }
 
-    private static class LocalDateAdapter implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> {
-        private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    // private static class LocalDateAdapter implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> {
+    //     @Override
+    //     public JsonElement serialize(LocalDate date, Type typeOfSrc, JsonSerializationContext context) {
+    //         return new JsonPrimitive(date.format(DateTimeFormatter.ISO_LOCAL_DATE));
+    //     }
 
+    //     @Override
+    //     public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    //         return LocalDate.parse(json.getAsString(), DateTimeFormatter.ISO_LOCAL_DATE);
+    //     }
+    // }
+    // Source - https://stackoverflow.com/a/53246168
+    // Posted by Sam Barnum, modified by community. See post 'Timeline' for change history
+    // Retrieved 2026-02-25, License - CC BY-SA 4.0
+
+    private static final class LocalDateAdapter extends TypeAdapter<LocalDate> {
         @Override
-        public JsonElement serialize(LocalDate date, Type typeOfSrc, JsonSerializationContext context) {
-            return new JsonPrimitive(date.format(formatter));
+        public void write( final JsonWriter jsonWriter, final LocalDate localDate ) throws IOException {
+            jsonWriter.value(localDate.toString());
         }
 
         @Override
-        public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            return LocalDate.parse(json.getAsString(), formatter);
+        public LocalDate read( final JsonReader jsonReader ) throws IOException {
+            return LocalDate.parse(jsonReader.nextString());
         }
     }
 }

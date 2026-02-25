@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Skibidi",
+    "coordinates": {
+      "x": 5,
+      "y": 5.0
+    },
+    "creationDate": "Feb 25, 2026, 3:42:43 AM",
+    "numberOfParticipants": 5,
+    "singlesCount": 5,
+    "description": "5",
+    "genre": "POP",
+    "frontMan": {
+      "name": "Mihail",
+      "birthday": "2026-12-12",
+      "eyeColor": "RED"
+    }
+  }
+]

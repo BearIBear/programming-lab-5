@@ -11,8 +11,8 @@ class Main {
 
         String fileName = System.getenv("INPUT_FILENAME");
         if (fileName == null || fileName.isBlank()) {
-            System.out.println("ВНИМАНИЕ: Переменная окружения INPUT_FILENAME не задана.");
-            System.out.println("Будет использован файл по умолчанию: Data.json");
+            System.out.println("Переменная окружения INPUT_FILENAME нет");
+            System.out.println("Файл по умолчанию: Data.json");
             fileName = "Data.json";
         }
 
