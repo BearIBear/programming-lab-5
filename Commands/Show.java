@@ -9,7 +9,7 @@ public class Show extends Command {
     }
 
     @Override
-    public void run() {
+    public boolean run() {
         var collection = collectionManager.getCollection();
         for (MusicBand musicBand : collection) {
             System.out.println("ID группы: " + musicBand.getId());
@@ -22,5 +22,6 @@ public class Show extends Command {
             System.out.println("Количество синглов: " + musicBand.getSinglesCount());
             System.out.println("Координаты: " + musicBand.getCoordinates());
         }
+        return true;
     }
 }

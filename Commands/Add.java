@@ -11,9 +11,10 @@ public class Add extends Command {
     }
 
     @Override
-    public void run() {
+    public boolean run() {
         Scanner console = new Scanner(System.in);
         InputManager inputManager = new InputManager(console);
         collectionManager.addElement(inputManager.askMusicBand());
+        return true;
     }
 }

@@ -12,7 +12,8 @@ public class Save extends Command {
     }
 
     @Override
-    public void run() {
+    public boolean run() {
         fileManager.save(collectionManager);
+        return true;
     }
 }

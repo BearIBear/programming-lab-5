@@ -13,7 +13,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
-// import java.time.format.DateTimeFormatter;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
@@ -98,21 +97,6 @@ public class FileManager {
             System.out.println("Ошибка при сохранении файла: " + e.getMessage());
         }
     }
-
-    // private static class LocalDateAdapter implements JsonSerializer<LocalDate>, JsonDeserializer<LocalDate> {
-    //     @Override
-    //     public JsonElement serialize(LocalDate date, Type typeOfSrc, JsonSerializationContext context) {
-    //         return new JsonPrimitive(date.format(DateTimeFormatter.ISO_LOCAL_DATE));
-    //     }
-
-    //     @Override
-    //     public LocalDate deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-    //         return LocalDate.parse(json.getAsString(), DateTimeFormatter.ISO_LOCAL_DATE);
-    //     }
-    // }
-    // Source - https://stackoverflow.com/a/53246168
-    // Posted by Sam Barnum, modified by community. See post 'Timeline' for change history
-    // Retrieved 2026-02-25, License - CC BY-SA 4.0
 
     private static final class LocalDateAdapter extends TypeAdapter<LocalDate> {
         @Override

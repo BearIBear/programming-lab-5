@@ -1,9 +1,11 @@
 package commands;
 import managers.CollectionManager;
+import managers.CommandManager;
 
 public abstract class Command {
     private final String name;
     private final String desc;
+    protected CommandManager commandManager;
     protected CollectionManager collectionManager;
 
     public Command(String name, String desc, CollectionManager collectionManager) {
@@ -12,7 +14,7 @@ public abstract class Command {
         this.collectionManager = collectionManager;
     }
 
-    public abstract void run();
+    public abstract boolean run();
     
     public String getName() {
         return name;
@@ -20,5 +22,17 @@ public abstract class Command {
 
     public String getDesc() {
         return desc;
+    }
+    
+    public CommandManager getCommandManager() {
+        return commandManager;
+    }
+
+    public CollectionManager getCollectionManager() {
+        return collectionManager;
+    }
+
+    public void setCommandManager(CommandManager commandManager) {
+        this.commandManager = commandManager;
     }
 }

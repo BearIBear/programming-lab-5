@@ -1,4 +1,3 @@
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -8,6 +7,7 @@ import managers.*;
 class Main {
     public static void main(String[] args) {
         Scanner console = new Scanner(System.in);
+        boolean state = true;
 
         String fileName = System.getenv("INPUT_FILENAME");
         if (fileName == null || fileName.isBlank()) {
@@ -20,25 +20,25 @@ class Main {
         FileManager fileManager = new FileManager(fileName);
         fileManager.load(collectionManager);
 
-        Map<String, Command> commandsList = new HashMap<>();
-        commandsList.put("help", new Help(collectionManager));
-        commandsList.put("info", new Info(collectionManager));
-        commandsList.put("add", new Add(collectionManager));
-        commandsList.put("show", new Show(collectionManager));
-        commandsList.put("save", new Save(collectionManager, fileManager));
+        CommandManager commandManager = new CommandManager();
+        commandManager.register("help", new Help(collectionManager));
+        commandManager.register("info", new Info(collectionManager));
+        commandManager.register("add", new Add(collectionManager));
+        commandManager.register("show", new Show(collectionManager));
+        commandManager.register("save", new Save(collectionManager, fileManager));
+        commandManager.register("clear", new Clear(collectionManager));
+        commandManager.register("exit", new Exit(collectionManager));
+        commandManager.register("update", new Update(collectionManager));
+        Map<String, Command> commandsList = commandManager.getCommandsList();
 
         System.out.print("> ");
-        while (true) {
+        while (state) {
             String input = console.nextLine().trim();
             String[] tokens = input.split(" ");
-            String commandName = tokens[0];
-
-            if (commandsList.containsKey(commandName)) {
-                commandsList.get(commandName).run(); 
-            } else if (commandName.equals("exit")) {
-                break;
+            if (commandsList.containsKey(tokens[0])) {
+                state = commandsList.get(tokens[0]).run();
             } else {
-                System.out.println(commandName + " не является командой. Введите help.");
+                System.out.println(input + " не является командой. Введите help.");
             }
             System.out.print("> ");
         }

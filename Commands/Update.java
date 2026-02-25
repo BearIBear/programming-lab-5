@@ -2,9 +2,9 @@ package commands;
 
 import managers.CollectionManager;
 
-public class Info extends Command {
-    public Info(CollectionManager collectionManager) {
-        super("info", "вывести информацию о коллекции", collectionManager);
+public class Update extends Command {
+    public Update(CollectionManager collectionManager) {
+        super("update id", "обновить значение элемента коллекции, id которого равен заданному", collectionManager);
     }
 
     @Override
