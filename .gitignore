@@ -25,3 +25,5 @@ replay_pid*
 
 # VsCode... duh
 *.vscode
+.vscode
+**/settings.json

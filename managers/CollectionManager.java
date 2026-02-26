@@ -28,4 +28,14 @@ public class CollectionManager {
     public void clearCollection() {
         collection.clear();
     }
+
+    public boolean removeElement(long id) {
+        for (MusicBand musicBand : collection) {
+            if (musicBand.getId() == id) {
+                collection.remove(musicBand);
+                return true;
+            }
+        }
+        return false;
+    }
 }

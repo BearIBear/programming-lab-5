@@ -5,11 +5,14 @@ import models.MusicBand;
 
 public class Show extends Command {
     public Show(CollectionManager collectionManager) {
-        super("show", "вывести в стандартный поток вывода все элементы коллекции в строковом представлении", collectionManager);
+        super("show", "вывести в стандартный поток вывода все элементы коллекции в строковом представлении", 0, collectionManager);
     }
 
     @Override
-    public boolean run() {
+    public boolean run(String[] args) {
+        if (!checkArgAmount(args)) {
+            return true;
+        }
         var collection = collectionManager.getCollection();
         for (MusicBand musicBand : collection) {
             System.out.println("ID группы: " + musicBand.getId());

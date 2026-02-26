@@ -10,9 +10,9 @@ public class CommandManager {
     
     public CommandManager() {}
 
-    public void register(String name, Command command) {
+    public void register(Command command) {
         command.setCommandManager(this);
-        commandsList.put(name, command);
+        commandsList.put(command.getName(), command);
     }
 
     public void listCommands() {
