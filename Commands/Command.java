@@ -3,7 +3,7 @@ import managers.CollectionManager;
 import managers.CommandManager;
 
 public abstract class Command {
-    private final String name;
+    protected final String name;
     private final String desc;
     private final int argsAmount;
     protected CommandManager commandManager;
@@ -39,7 +39,7 @@ public abstract class Command {
     }
 
     public boolean checkArgAmount(String[] args) {
-        if (args.length == this.argsAmount) {
+        if (args.length < this.argsAmount) {
             System.out.println("\u001B[31m" + this.name + " : Недостаточно параметров" + "\u001B[0m");
             return false;
         }

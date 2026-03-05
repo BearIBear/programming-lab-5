@@ -16,8 +16,13 @@ public class CommandManager {
     }
 
     public void listCommands() {
+        int max_length = 0;
+        int padding = 5;
         for (String name : commandsList.keySet()) {
-            System.out.println(name + " ".repeat(10 - name.length()) + commandsList.get(name).getDesc());
+            max_length = Math.max(max_length, name.length());
+        }
+        for (String name : commandsList.keySet()) {
+            System.out.println(name + " ".repeat(max_length + padding - name.length()) + commandsList.get(name).getDesc());
         }
     }
 

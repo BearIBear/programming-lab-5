@@ -30,6 +30,9 @@ class Main {
         commandManager.register(new Exit(collectionManager));
         commandManager.register(new Update(collectionManager));
         commandManager.register(new RemoveById(collectionManager));
+        commandManager.register(new Head(collectionManager));
+        commandManager.register(new AddIfMax(collectionManager));
+        commandManager.register(new CountLessThanDescription(collectionManager));
 
         Map<String, Command> commandsList = commandManager.getCommandsList();
 

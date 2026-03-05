@@ -19,10 +19,10 @@ public class RemoveById extends Command {
                 System.out.println("Элемент с id = " + id + " успешно удалён");
                 MusicBand.addVacantId(id);
             } else {
-                System.out.println("\u001B[31m" + "remove_by_id : Элемент с id = " + id + " не найден" + "\u001B[0m");
+                System.out.println("\u001B[31m" + this.name + " : Элемент с id = " + id + " не найден" + "\u001B[0m");
             }
         } catch (NumberFormatException e) {
-            System.out.println("\u001B[31m" + "remove_by_id : Позиционный параметр id принимает только значения формата long" + "\u001B[0m");
+            System.out.println("\u001B[31m" + this.name + "remove_by_id : Позиционный параметр id принимает только значения формата long" + "\u001B[0m");
         }
         return true;
     }

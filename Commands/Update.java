@@ -28,7 +28,7 @@ public class Update extends Command {
                 return true;
             }
         }
-        System.out.println("\u001B[31m" + "update : Элемент с id = " + id + " не найден" + "\u001B[0m");
+        System.out.println("\u001B[31m" + this.name + " : Элемент с id = " + id + " не найден" + "\u001B[0m");
         return true;
     }
 }
