@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -42,12 +43,19 @@ class Main {
             String input = console.nextLine().trim();
             String[] tokens = input.split(" ");
             if (commandsList.containsKey(tokens[0])) {
-                state = commandsList.get(tokens[0]).run(tokens);
+                state = commandsList.get(tokens[0]).run(removeEmptyStrings(tokens));
             } else {
                 System.out.println("\u001B[31m" + input + " не распознано как имя команды. Введите help для справки." + "\u001B[0m");
             }
             System.out.print("> ");
         }
         console.close();
+    }
+
+    public static String[] removeEmptyStrings(String[] tokens) {
+        ArrayList<String> tokensList = new ArrayList<>();
+        tokensList.removeIf(str -> str.length() == 0);
+        String[] outTokens = tokensList.toArray(tokens);
+        return outTokens;
     }
 }
