@@ -33,6 +33,7 @@ class Main {
         commandManager.register(new Head(collectionManager));
         commandManager.register(new AddIfMax(collectionManager));
         commandManager.register(new CountLessThanDescription(collectionManager));
+        commandManager.register(new Script(collectionManager));
 
         Map<String, Command> commandsList = commandManager.getCommandsList();
 

@@ -1,5 +1,7 @@
 package managers;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +9,8 @@ import commands.Command;
 
 public class CommandManager {
     private final Map<String, Command> commandsList = new HashMap<>();
+    private ArrayList<File> scriptFiles = new ArrayList<>();
+    private int recursionLimit = 5;
     
     public CommandManager() {}
 
@@ -28,5 +32,34 @@ public class CommandManager {
 
     public Map<String, Command> getCommandsList() {
         return commandsList;
+    }
+
+    public ArrayList<File> getScriptFiles() {
+        return scriptFiles;
+    }
+
+    public void addScriptFile(File file) {
+        scriptFiles.add(file);
+    }
+
+    public void clearScriptFile() {
+        scriptFiles.clear();
+    }
+
+    public boolean checkRecursionExhaustion(File file) {
+        int count = 0;
+        for (File scriptFile : scriptFiles) {
+            if (file.equals(scriptFile)) {
+                count += 1;
+            }
+        }
+        if (this.recursionLimit < count) {
+            return true;
+        }
+        return false;
+    }
+
+    public int getRecursionLimit() {
+        return recursionLimit;
     }
 }
