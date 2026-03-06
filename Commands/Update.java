@@ -1,5 +1,7 @@
 package commands;
 
+import managers.ConsoleManager;
+
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
@@ -8,8 +10,8 @@ import managers.InputManager;
 import models.MusicBand;
 
 public class Update extends Command {
-    public Update(CollectionManager collectionManager) {
-        super("update", "обновить значение элемента коллекции, id которого равен заданному", 1, collectionManager);
+    public Update(CollectionManager collectionManager, ConsoleManager consoleManager) {
+        super("update", "обновить значение элемента коллекции, id которого равен заданному", 1, collectionManager, consoleManager);
     }
 
     @Override
@@ -28,7 +30,7 @@ public class Update extends Command {
                 return true;
             }
         }
-        System.out.println("\u001B[31m" + this.name + " : Элемент с id = " + id + " не найден" + "\u001B[0m");
+        consoleManager.getTerminal().writer().println("\u001B[31m" + this.name + " : Элемент с id = " + id + " не найден" + "\u001B[0m");
         return true;
     }
 }

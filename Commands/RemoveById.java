@@ -1,11 +1,13 @@
 package commands;
 
+import managers.ConsoleManager;
+
 import managers.CollectionManager;
 import models.MusicBand;
 
 public class RemoveById extends Command {
-    public RemoveById(CollectionManager collectionManager) {
-        super("remove_by_id", "удалить элемент из коллекции по его id", 1, collectionManager);
+    public RemoveById(CollectionManager collectionManager, ConsoleManager consoleManager) {
+        super("remove_by_id", "удалить элемент из коллекции по его id", 1, collectionManager, consoleManager);
     }
 
     @Override
@@ -16,13 +18,13 @@ public class RemoveById extends Command {
         try {
             long id = Long.parseLong(args[1]);
             if (collectionManager.removeElement(id)) {
-                System.out.println("Элемент с id = " + id + " успешно удалён");
+                consoleManager.getTerminal().writer().println("Элемент с id = " + id + " успешно удалён");
                 MusicBand.addVacantId(id);
             } else {
-                System.out.println("\u001B[31m" + this.name + " : Элемент с id = " + id + " не найден" + "\u001B[0m");
+                consoleManager.getTerminal().writer().println("\u001B[31m" + this.name + " : Элемент с id = " + id + " не найден" + "\u001B[0m");
             }
         } catch (NumberFormatException e) {
-            System.out.println("\u001B[31m" + this.name + "remove_by_id : Позиционный параметр id принимает только значения формата long" + "\u001B[0m");
+            consoleManager.getTerminal().writer().println("\u001B[31m" + this.name + "remove_by_id : Позиционный параметр id принимает только значения формата long" + "\u001B[0m");
         }
         return true;
     }

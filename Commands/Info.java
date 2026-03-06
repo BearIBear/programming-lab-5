@@ -1,10 +1,12 @@
 package commands;
 
+import managers.ConsoleManager;
+
 import managers.CollectionManager;
 
 public class Info extends Command {
-    public Info(CollectionManager collectionManager) {
-        super("info", "вывести информацию о коллекции", 0, collectionManager);
+    public Info(CollectionManager collectionManager, ConsoleManager consoleManager) {
+        super("info", "вывести информацию о коллекции", 0, collectionManager, consoleManager);
     }
 
     @Override
@@ -12,9 +14,9 @@ public class Info extends Command {
         if (!checkArgAmount(args)) {
             return true;
         }
-        System.out.println("Тип коллекции: PriorityQueue");
-        System.out.println("Количество элементов: " + collectionManager.getCollection().size());
-        System.out.println("Дата инициализации: " + collectionManager.getInitTime());
+        consoleManager.getTerminal().writer().println("Тип коллекции: PriorityQueue");
+        consoleManager.getTerminal().writer().println("Количество элементов: " + collectionManager.getCollection().size());
+        consoleManager.getTerminal().writer().println("Дата инициализации: " + collectionManager.getInitTime());
         return true;
     }
 }

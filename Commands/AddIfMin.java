@@ -1,5 +1,7 @@
 package commands;
 
+import managers.ConsoleManager;
+
 import java.util.Scanner;
 
 import managers.CollectionManager;
@@ -7,8 +9,8 @@ import managers.InputManager;
 import models.MusicBand;
 
 public class AddIfMin extends Command {
-    public AddIfMin(CollectionManager collectionManager) {
-        super("add_if_min", "добавить новый элемент в коллекцию, если его значение превышает значение наибольшего элемента этой коллекции", 0, collectionManager);
+    public AddIfMin(CollectionManager collectionManager, ConsoleManager consoleManager) {
+        super("add_if_min", "добавить новый элемент в коллекцию, если его значение превышает значение наибольшего элемента этой коллекции", 0, collectionManager, consoleManager);
     }
 
     @Override
@@ -17,8 +19,7 @@ public class AddIfMin extends Command {
             return true;
         }
 
-        InputManager inputManager = new InputManager(new Scanner(System.in, System.getProperty("sun.stdout.encoding", "UTF-8")));
-        MusicBand bandToAdd = inputManager.askMusicBand();
+        MusicBand bandToAdd = consoleManager.askMusicBand();
         for (MusicBand band : collectionManager.getCollection()) {
             if (band.compareTo(bandToAdd) < 1) {
                 return true;

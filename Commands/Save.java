@@ -1,13 +1,15 @@
 package commands;
 
+import managers.ConsoleManager;
+
 import managers.CollectionManager;
 import managers.FileManager;
 
 public class Save extends Command {
     private FileManager fileManager;
 
-    public Save(CollectionManager collectionManager, FileManager fileManager) {
-        super("save", "сохранить коллекцию в файл", 0, collectionManager);
+    public Save(CollectionManager collectionManager, ConsoleManager consoleManager, FileManager fileManager) {
+        super("save", "сохранить коллекцию в файл", 0, collectionManager, consoleManager);
         this.fileManager = fileManager;
     }
 

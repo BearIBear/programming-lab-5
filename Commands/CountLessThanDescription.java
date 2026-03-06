@@ -1,13 +1,16 @@
 package commands;
 
+import managers.ConsoleManager;
+
 import java.util.Arrays;
 
 import managers.CollectionManager;
+import managers.ConsoleManager;
 import models.MusicBand;
 
 public class CountLessThanDescription extends Command {
-    public CountLessThanDescription(CollectionManager collectionManager) {
-        super("count_less_than_description", "вывести количество элементов, значение поля description которых меньше заданного", 1, collectionManager);
+    public CountLessThanDescription(CollectionManager collectionManager, ConsoleManager consoleManager) {
+        super("count_less_than_description", "вывести количество элементов, значение поля description которых меньше заданного", 1, collectionManager, consoleManager);
     }
 
     @Override
@@ -24,7 +27,7 @@ public class CountLessThanDescription extends Command {
                 count += 1;
             }
         }
-        System.out.println(count);
+        consoleManager.getTerminal().writer().println(count);
         return true;
     }
 }

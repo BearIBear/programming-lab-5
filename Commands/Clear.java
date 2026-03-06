@@ -1,11 +1,13 @@
 package commands;
 
+import managers.ConsoleManager;
+
 import managers.CollectionManager;
 import models.MusicBand;
 
 public class Clear extends Command {
-    public Clear(CollectionManager collectionManager) {
-        super("clear", "очистить коллекцию", 0, collectionManager);
+    public Clear(CollectionManager collectionManager, ConsoleManager consoleManager) {
+        super("clear", "очистить коллекцию", 0, collectionManager, consoleManager);
     }
 
     @Override

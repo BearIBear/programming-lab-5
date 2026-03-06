@@ -1,13 +1,15 @@
 package commands;
 
+import managers.ConsoleManager;
+
 import java.util.Arrays;
 
 import managers.CollectionManager;
 import models.MusicBand;
 
 public class FilterContainsName extends Command {
-    public FilterContainsName(CollectionManager collectionManager) {
-        super("filter_contains_name", "вывести элементы, значение поля name которых содержит заданную подстроку", 1, collectionManager);
+    public FilterContainsName(CollectionManager collectionManager, ConsoleManager consoleManager) {
+        super("filter_contains_name", "вывести элементы, значение поля name которых содержит заданную подстроку", 1, collectionManager, consoleManager);
     }
 
     @Override
@@ -20,7 +22,7 @@ public class FilterContainsName extends Command {
 
         for (MusicBand band : collectionManager.getCollection()) {
             if (band.getName().equals(newArgs[1])) {
-                System.out.println(band);
+                consoleManager.getTerminal().writer().println(band);
             }
         }
         return true;

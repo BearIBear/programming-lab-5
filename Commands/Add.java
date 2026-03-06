@@ -1,13 +1,16 @@
 package commands;
 
+import managers.ConsoleManager;
+
 import java.util.Scanner;
 
 import managers.CollectionManager;
+import managers.ConsoleManager;
 import managers.InputManager;
 
 public class Add extends Command {
-    public Add(CollectionManager collectionManager) {
-        super("add", "добавить новый элемент в коллекцию", 0, collectionManager);
+    public Add(CollectionManager collectionManager, ConsoleManager consoleManager) {
+        super("add", "добавить новый элемент в коллекцию", 0, collectionManager, consoleManager);
     }
 
     @Override
@@ -15,8 +18,7 @@ public class Add extends Command {
         if (!checkArgAmount(args)) {
             return true;
         }
-        InputManager inputManager = new InputManager(new Scanner(System.in, System.getProperty("sun.stdout.encoding", "UTF-8")));
-        collectionManager.addElement(inputManager.askMusicBand());
+        collectionManager.addElement(consoleManager.askMusicBand());
         return true;
     }
 }

@@ -1,6 +1,9 @@
 package commands;
+
+import managers.ConsoleManager;
 import managers.CollectionManager;
 import managers.CommandManager;
+import managers.ConsoleManager;
 
 public abstract class Command {
     protected final String name;
@@ -8,12 +11,14 @@ public abstract class Command {
     private final int argsAmount;
     protected CommandManager commandManager;
     protected CollectionManager collectionManager;
+    protected ConsoleManager consoleManager;
 
-    public Command(String name, String desc, int argsAmount, CollectionManager collectionManager) {
+    public Command(String name, String desc, int argsAmount, CollectionManager collectionManager, ConsoleManager consoleManager) {
         this.name = name;
         this.desc = desc;
         this.argsAmount = argsAmount + 1;
         this.collectionManager = collectionManager;
+        this.consoleManager = consoleManager;
     }
 
     public abstract boolean run(String[] args);
@@ -40,11 +45,11 @@ public abstract class Command {
 
     public boolean checkArgAmount(String[] args) {
         if (args.length < this.argsAmount) {
-            System.out.println("\u001B[31m" + this.name + " : Недостаточно параметров" + "\u001B[0m");
+            consoleManager.getTerminal().writer().println("\u001B[31m" + this.name + " : Недостаточно параметров" + "\u001B[0m");
             return false;
         }
         if (args.length > this.argsAmount) {
-            System.out.println("\u001B[31m" + this.name + " : Слишком много параметров" + "\u001B[0m");
+            consoleManager.getTerminal().writer().println("\u001B[31m" + this.name + " : Слишком много параметров" + "\u001B[0m");
             return false;
         }
         return true;

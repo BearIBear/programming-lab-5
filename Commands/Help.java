@@ -1,10 +1,12 @@
 package commands;
 
+import managers.ConsoleManager;
+
 import managers.CollectionManager;
 
 public class Help extends Command {
-    public Help(CollectionManager collectionManager) {
-        super("help", "вывести справку по доступным командам", 0, collectionManager);
+    public Help(CollectionManager collectionManager, ConsoleManager consoleManager) {
+        super("help", "вывести справку по доступным командам", 0, collectionManager, consoleManager);
     }
 
     @Override
@@ -12,7 +14,16 @@ public class Help extends Command {
         if (!checkArgAmount(args)) {
             return true;
         }
-        commandManager.listCommands();
+
+        int max_length = 0;
+        int padding = 5;
+        var commandsList = commandManager.getCommandsList();
+        for (String name : commandsList.keySet()) {
+            max_length = Math.max(max_length, name.length());
+        }
+        for (String name : commandsList.keySet()) {
+            System.out.println(name + " ".repeat(max_length + padding - name.length()) + commandsList.get(name).getDesc());
+        }
         return true;
     }
 }

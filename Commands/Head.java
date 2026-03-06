@@ -1,10 +1,13 @@
 package commands;
 
+import managers.ConsoleManager;
+
 import managers.CollectionManager;
+import managers.ConsoleManager;
 
 public class Head extends Command {
-    public Head(CollectionManager collectionManager) {
-        super("head", "вывести первый элемент коллекции", 0, collectionManager);
+    public Head(CollectionManager collectionManager, ConsoleManager consoleManager) {
+        super("head", "вывести первый элемент коллекции", 0, collectionManager, consoleManager);
     }
 
     @Override
@@ -14,11 +17,11 @@ public class Head extends Command {
         }
         
         if (collectionManager.getCollection().size() == 0) {
-            System.out.println("\u001B[31m" + this.name + " : Коллекция пустая" + "\u001B[0m");
+            consoleManager.getTerminal().writer().println("\u001B[31m" + this.name + " : Коллекция пустая" + "\u001B[0m");
             return true;
         }
 
-        System.out.println(collectionManager.getCollection().peek());
+        consoleManager.getTerminal().writer().println(collectionManager.getCollection().peek());
 
         return true;
     }
