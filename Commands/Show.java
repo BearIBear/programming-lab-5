@@ -1,5 +1,7 @@
 package commands;
 
+import java.util.PriorityQueue;
+
 import managers.CollectionManager;
 import models.MusicBand;
 
@@ -13,7 +15,7 @@ public class Show extends Command {
         if (!checkArgAmount(args)) {
             return true;
         }
-        var collection = collectionManager.getCollection();
+        PriorityQueue<MusicBand> collection = collectionManager.getCollection();
         for (MusicBand musicBand : collection) {
             System.out.println("ID группы: " + musicBand.getId());
             System.out.println("Название группы: " + musicBand.getName());

@@ -28,7 +28,7 @@ public class Script extends Command {
                 Map<String, Command> commandsList = commandManager.getCommandsList();
 
                 if (commandManager.checkRecursionExhaustion(file)) {
-                    System.out.println("\u001B[31m" + this.name + ": Превышен лимит глубины рекурсии" + "\u001B[0m");
+                    System.out.println("\u001B[31m" + this.name + " : Превышен лимит глубины рекурсии" + "\u001B[0m");
                     fileReader.close();
                     commandManager.clearScriptFile();
                     return true;

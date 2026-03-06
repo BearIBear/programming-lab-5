@@ -12,7 +12,6 @@ public class Exit extends Command {
         if (!checkArgAmount(args)) {
             return true;
         }
-        System.exit(0);
         return false;
     }
 }

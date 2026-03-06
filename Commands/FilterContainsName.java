@@ -1,9 +1,9 @@
 package commands;
 
-import java.util.Scanner;
+import java.util.Arrays;
 
 import managers.CollectionManager;
-import managers.InputManager;
+import models.MusicBand;
 
 public class FilterContainsName extends Command {
     public FilterContainsName(CollectionManager collectionManager) {
@@ -12,11 +12,17 @@ public class FilterContainsName extends Command {
 
     @Override
     public boolean run(String[] args) {
-        if (!checkArgAmount(args)) {
+        String description = String.join("", Arrays.copyOfRange(args, 1, args.length));
+        String [] newArgs = {args[0], description};
+        if (!checkArgAmount(newArgs)) {
             return true;
         }
-        InputManager inputManager = new InputManager(new Scanner(System.in, System.getProperty("sun.stdout.encoding", "UTF-8")));
-        collectionManager.addElement(inputManager.askMusicBand());
+
+        for (MusicBand band : collectionManager.getCollection()) {
+            if (band.getName().equals(newArgs[1])) {
+                System.out.println(band);
+            }
+        }
         return true;
     }
 }

@@ -1,4 +1,6 @@
-import java.util.ArrayList;
+// import java.util.ArrayList;
+// import java.util.Arrays;
+// import java.util.Collections;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -35,27 +37,33 @@ class Main {
         commandManager.register(new AddIfMax(collectionManager));
         commandManager.register(new CountLessThanDescription(collectionManager));
         commandManager.register(new Script(collectionManager));
+        commandManager.register(new FilterContainsName(collectionManager));
 
         Map<String, Command> commandsList = commandManager.getCommandsList();
-
-        System.out.print("> ");
         while (state) {
+            System.out.print("> ");
             String input = console.nextLine().trim();
             String[] tokens = input.split(" ");
             if (commandsList.containsKey(tokens[0])) {
-                state = commandsList.get(tokens[0]).run(removeEmptyStrings(tokens));
+                state = commandsList.get(tokens[0]).run(tokens);
             } else {
                 System.out.println("\u001B[31m" + input + " не распознано как имя команды. Введите help для справки." + "\u001B[0m");
             }
-            System.out.print("> ");
         }
         console.close();
     }
 
-    public static String[] removeEmptyStrings(String[] tokens) {
-        ArrayList<String> tokensList = new ArrayList<>();
-        tokensList.removeIf(str -> str.length() == 0);
-        String[] outTokens = tokensList.toArray(tokens);
-        return outTokens;
-    }
+//     public static ArrayList<String> removeEmptyStrings(String[] tokens) {
+//         ArrayList<String> tokensList = new ArrayList<>();
+//         System.out.println(tokensList);
+//         for (String string : tokensList) {
+//             if (string.isBlank()) {
+//                 tokensList.remove(string);
+//                 System.out.println("После удаления: " + tokensList);
+//             }
+//         }
+//         System.out.println("После удаления всех: " + tokensList);
+//         // String[] outTokens = tokensList.toArray(new String[1]);
+//         return tokensList;
+//     }
 }
