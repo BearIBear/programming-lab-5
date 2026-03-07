@@ -5,7 +5,6 @@ import managers.ConsoleManager;
 import java.util.Arrays;
 
 import managers.CollectionManager;
-import managers.ConsoleManager;
 import models.MusicBand;
 
 public class CountLessThanDescription extends Command {

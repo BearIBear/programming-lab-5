@@ -1,9 +1,7 @@
 package commands;
 
 import managers.ConsoleManager;
-
 import managers.CollectionManager;
-import managers.ConsoleManager;
 
 public class Head extends Command {
     public Head(CollectionManager collectionManager, ConsoleManager consoleManager) {

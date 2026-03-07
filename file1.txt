@@ -1,1 +1,2 @@
 info
+script file.txt

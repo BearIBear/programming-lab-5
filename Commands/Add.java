@@ -2,11 +2,7 @@ package commands;
 
 import managers.ConsoleManager;
 
-import java.util.Scanner;
-
 import managers.CollectionManager;
-import managers.ConsoleManager;
-import managers.InputManager;
 
 public class Add extends Command {
     public Add(CollectionManager collectionManager, ConsoleManager consoleManager) {
@@ -19,6 +15,7 @@ public class Add extends Command {
             return true;
         }
         collectionManager.addElement(consoleManager.askMusicBand());
+        consoleManager.getTerminal().writer().println("Банда добавлена успешно");
         return true;
     }
 }

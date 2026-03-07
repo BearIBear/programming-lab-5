@@ -2,11 +2,7 @@ package commands;
 
 import managers.ConsoleManager;
 
-import java.util.Scanner;
-
 import managers.CollectionManager;
-import managers.ConsoleManager;
-import managers.InputManager;
 import models.MusicBand;
 
 public class AddIfMax extends Command {
@@ -23,10 +19,12 @@ public class AddIfMax extends Command {
         MusicBand bandToAdd = consoleManager.askMusicBand();
         for (MusicBand band : collectionManager.getCollection()) {
             if (band.compareTo(bandToAdd) > -1) {
+                consoleManager.getTerminal().writer().println("Банда не добавлена");
                 return true;
             }
         }
         collectionManager.addElement(bandToAdd);
+        consoleManager.getTerminal().writer().println("Банда добавлена успешно");
         return true;
     }
 }

@@ -2,10 +2,7 @@ package commands;
 
 import managers.ConsoleManager;
 
-import java.util.Scanner;
-
 import managers.CollectionManager;
-import managers.InputManager;
 import models.MusicBand;
 
 public class AddIfMin extends Command {

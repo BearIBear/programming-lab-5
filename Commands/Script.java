@@ -46,6 +46,8 @@ public class Script extends Command {
                 }
             }
             fileReader.close();
+            consoleManager.getTerminal().writer().println("Выполнение программы завершено успешно");
+            consoleManager.getTerminal().flush();
         } catch (FileNotFoundException e) {
             consoleManager.getTerminal().writer().println("\u001B[31m" + this.name + " : Файл не найден" + "\u001B[0m");
             commandManager.clearScriptFile();

@@ -3,7 +3,6 @@ package commands;
 import managers.ConsoleManager;
 import managers.CollectionManager;
 import managers.CommandManager;
-import managers.ConsoleManager;
 
 public abstract class Command {
     protected final String name;

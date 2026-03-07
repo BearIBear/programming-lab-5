@@ -1,15 +1,7 @@
-// import java.util.ArrayList;
-// import java.util.Arrays;
-// import java.util.Collections;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,7 +10,6 @@ import org.jline.reader.History;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.reader.impl.completer.AggregateCompleter;
-// import org.jline.builtins.Completers$FileNameCompleter;
 import org.jline.reader.impl.completer.StringsCompleter;
 import org.jline.reader.impl.history.DefaultHistory;
 import org.jline.terminal.Terminal;
