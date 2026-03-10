@@ -14,7 +14,7 @@ public class CountLessThanDescription extends Command {
 
     @Override
     public boolean run(String[] args) {
-        String description = String.join("", Arrays.copyOfRange(args, 1, args.length));
+        String description = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
         String [] newArgs = {args[0], description};
         if (!checkArgAmount(newArgs)) {
             return true;

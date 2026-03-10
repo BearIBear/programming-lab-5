@@ -16,6 +16,7 @@ public class Update extends Command {
 
     @Override
     public boolean run(String[] args) {
+        args = Command.RemoveEmptyElements(args);
         if (!checkArgAmount(args)) {
             return true;
         }

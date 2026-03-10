@@ -58,8 +58,37 @@ class Main {
             commandManager.register(new CountLessThanDescription(collectionManager, consoleManager));
             commandManager.register(new Script(collectionManager, consoleManager));
             commandManager.register(new FilterContainsName(collectionManager, consoleManager));
+            commandManager.register(new FilterGreaterThanGenre(collectionManager, consoleManager));
             Map<String, Command> commandsList = commandManager.getCommandsList();
             
+            String[] commandNames = commandsList.keySet().toArray(String[]::new);
+            String commands = "\\b(";
+            for (int i = 0; i < commandNames.length - 1; i++) {
+                commands += commandNames[i] + '|';
+            }
+            commands += commandNames[commandNames.length - 1] + ")\\b";
+            final Pattern commandsPattern = Pattern.compile(commands, Pattern.CASE_INSENSITIVE);
+
+            String[] filesRaw = null;
+            try {
+                Stream<Path> pathStream = Files.list(Paths.get("."));
+                filesRaw = pathStream.filter(Files::isRegularFile).map(Path::getFileName).map(Path::toString).toArray(String[]::new);
+                pathStream.close();
+            } catch (IOException e) {}
+
+            // String files = "\\b(";
+            String files = "";
+            for (int i = 0; i < filesRaw.length - 1; i++) {
+                files += filesRaw[i] + '|';
+            }
+            // files += filesRaw[filesRaw.length - 1] + ")\\b";
+            files += filesRaw[filesRaw.length - 1];
+            files = files.replace(".", "\\.");
+            files = files.replace("(", "\\(");
+            files = files.replace(")", "\\)");
+            files = "\\b(" + files + ")\\b";
+            final Pattern filesPattern = Pattern.compile(files);
+
             Highlighter consoleHighlighter = new Highlighter() {
                 @Override
                 public AttributedString highlight(LineReader reader, String buffer) {
@@ -68,34 +97,12 @@ class Main {
                         return builder.append(buffer).toAttributedString();
                     }
 
-                    String[] filesRaw = null;
-                    try {
-                        Stream<Path> pathStream = Files.list(Paths.get("."));
-                        filesRaw = pathStream.filter(Files::isRegularFile).map(Path::getFileName).map(Path::toString).toArray(String[]::new);
-                        pathStream.close();
-                    } catch (IOException e) {}
-
-                    Set<String> commandNames = commandsList.keySet();
-                    String commands = "\\b(";
-                    for (int i = 0; i < commandNames.size() - 1; i++) {
-                        commands += commandNames.toArray(String[]::new)[i] + '|';
-                    }
-                    commands += commandNames.toArray(String[]::new)[commandNames.toArray(String[]::new).length - 1] + ")\\b";
-                    Pattern commandsPattern = Pattern.compile(commands, Pattern.CASE_INSENSITIVE);
                     Matcher matcherCommand = commandsPattern.matcher(buffer);
-
-                    String files = "\\b(";
-                    for (int i = 0; i < filesRaw.length - 1; i++) {
-                        files += filesRaw[i] + '|';
-                    }
-                    files += filesRaw[filesRaw.length - 1] + ")\\b";
-                    files = files.replace(".", "\\.");
-                    Pattern filesPattern = Pattern.compile(files);
                     Matcher matcherFiles = filesPattern.matcher(buffer);
-                    // System.out.println(files);
 
                     boolean resultCommand = matcherCommand.find();
                     boolean resultFile = matcherFiles.find();
+
                     if (!resultCommand && !resultFile) {
                         builder.append(buffer);
                         return builder.toAttributedString();
@@ -106,8 +113,7 @@ class Main {
                         builder.styled(
                                 AttributedStyle.BOLD.foreground(AttributedStyle.BLUE),
                                 buffer.substring(matcherCommand.start(), matcherCommand.end()));
-                        // builder.append(buffer.substring(matcherCommand.end()));
-                        
+
                         if (!resultFile) {
                             builder.append(buffer.substring(matcherCommand.end()));
                             return builder.toAttributedString();
@@ -142,7 +148,6 @@ class Main {
                 }
             };
             
-            // Если не var, то оно ломается
             var dynamicCompleter = new AggregateCompleter(new StringsCompleter(commandsList.keySet()), new FileNameCompleter());
             LineReader reader = LineReaderBuilder.builder()
                     .terminal(terminal)
@@ -159,10 +164,8 @@ class Main {
                 String[] tokens = input.strip().split(" ");
                 if (commandsList.containsKey(tokens[0])) {
                     state = commandsList.get(tokens[0].toLowerCase()).run(tokens);
-                    // if (state == null) {
-                    //     consoleManager.getTerminal().writer().println("\u001B[31m" + "script : Превышен лимит глубины рекурсии" + "\u001B[0m");
-                    // }
                     commandManager.setRecursionForcedExit(false);
+                    commandManager.clearScriptFile();
                     consoleManager.getTerminal().flush();
                 } else if (tokens[0].isBlank()) {} else {
                     System.out.println("\u001B[31m" + input + " не распознано как имя команды. Введите help для справки." + "\u001B[0m");
