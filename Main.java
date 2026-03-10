@@ -59,7 +59,7 @@ class Main {
             commandManager.register(new Script(collectionManager, consoleManager));
             commandManager.register(new FilterContainsName(collectionManager, consoleManager));
             Map<String, Command> commandsList = commandManager.getCommandsList();
-
+            
             Highlighter consoleHighlighter = new Highlighter() {
                 @Override
                 public AttributedString highlight(LineReader reader, String buffer) {
@@ -74,7 +74,6 @@ class Main {
                         filesRaw = pathStream.filter(Files::isRegularFile).map(Path::getFileName).map(Path::toString).toArray(String[]::new);
                         pathStream.close();
                     } catch (IOException e) {}
-
 
                     Set<String> commandNames = commandsList.keySet();
                     String commands = "\\b(";
@@ -102,7 +101,6 @@ class Main {
                         return builder.toAttributedString();
                     }
 
-
                     if (resultCommand) {
                         builder.append(buffer.substring(0, matcherCommand.start()));
                         builder.styled(
@@ -115,7 +113,6 @@ class Main {
                             return builder.toAttributedString();
                         }
                     }
-
 
                     if (resultFile) {
                         int previousEnd;
@@ -162,6 +159,10 @@ class Main {
                 String[] tokens = input.strip().split(" ");
                 if (commandsList.containsKey(tokens[0])) {
                     state = commandsList.get(tokens[0].toLowerCase()).run(tokens);
+                    // if (state == null) {
+                    //     consoleManager.getTerminal().writer().println("\u001B[31m" + "script : Превышен лимит глубины рекурсии" + "\u001B[0m");
+                    // }
+                    commandManager.setRecursionForcedExit(false);
                     consoleManager.getTerminal().flush();
                 } else if (tokens[0].isBlank()) {} else {
                     System.out.println("\u001B[31m" + input + " не распознано как имя команды. Введите help для справки." + "\u001B[0m");

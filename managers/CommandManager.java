@@ -11,6 +11,7 @@ public class CommandManager {
     private final Map<String, Command> commandsList = new HashMap<>();
     private ArrayList<File> scriptFiles = new ArrayList<>();
     private int recursionLimit = 5;
+    private boolean recursionForcedExit;
     
     public CommandManager() {}
 
@@ -52,5 +53,11 @@ public class CommandManager {
         return recursionLimit;
     }
 
-    
+    public boolean isRecursionForcedExit() {
+        return recursionForcedExit;
+    }
+
+    public void setRecursionForcedExit(boolean recursionForcedExit) {
+        this.recursionForcedExit = recursionForcedExit;
+    }
 }
