@@ -1,6 +1,10 @@
 package commands;
 
 import managers.ConsoleManager;
+
+import java.util.Arrays;
+import java.util.function.Predicate;
+
 import managers.CollectionManager;
 import managers.CommandManager;
 
@@ -52,5 +56,9 @@ public abstract class Command {
             return false;
         }
         return true;
+    }
+
+    public static String[] RemoveEmptyElements(String[] input) {
+        return Arrays.stream(input).filter(Predicate.not(String::isBlank)).toArray(String[]::new);
     }
 }

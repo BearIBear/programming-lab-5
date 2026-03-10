@@ -1,9 +1,12 @@
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import org.jline.reader.Highlighter;
 import org.jline.reader.History;
@@ -65,23 +68,78 @@ class Main {
                         return builder.append(buffer).toAttributedString();
                     }
 
+                    String[] filesRaw = null;
+                    try {
+                        Stream<Path> pathStream = Files.list(Paths.get("."));
+                        filesRaw = pathStream.filter(Files::isRegularFile).map(Path::getFileName).map(Path::toString).toArray(String[]::new);
+                        pathStream.close();
+                    } catch (IOException e) {}
+
+
                     Set<String> commandNames = commandsList.keySet();
                     String commands = "\\b(";
                     for (int i = 0; i < commandNames.size() - 1; i++) {
-                        commands += commandNames.toArray(new String[1])[i] + '|';
+                        commands += commandNames.toArray(String[]::new)[i] + '|';
                     }
-                    commands += commandNames.toArray(new String[1])[commandNames.toArray(new String[1]).length - 1] + ")\\b";
+                    commands += commandNames.toArray(String[]::new)[commandNames.toArray(String[]::new).length - 1] + ")\\b";
                     Pattern commandsPattern = Pattern.compile(commands, Pattern.CASE_INSENSITIVE);
-                    Matcher matcher = commandsPattern.matcher(buffer);
+                    Matcher matcherCommand = commandsPattern.matcher(buffer);
 
-                    if (matcher.find()) {
-                        builder.append(buffer.substring(0, matcher.start()));
+                    String files = "\\b(";
+                    for (int i = 0; i < filesRaw.length - 1; i++) {
+                        files += filesRaw[i] + '|';
+                    }
+                    files += filesRaw[filesRaw.length - 1] + ")\\b";
+                    files = files.replace(".", "\\.");
+                    Pattern filesPattern = Pattern.compile(files);
+                    Matcher matcherFiles = filesPattern.matcher(buffer);
+                    // System.out.println(files);
+
+                    boolean resultCommand = matcherCommand.find();
+                    boolean resultFile = matcherFiles.find();
+                    if (!resultCommand && !resultFile) {
+                        builder.append(buffer);
+                        return builder.toAttributedString();
+                    }
+
+
+                    if (resultCommand) {
+                        builder.append(buffer.substring(0, matcherCommand.start()));
                         builder.styled(
                                 AttributedStyle.BOLD.foreground(AttributedStyle.BLUE),
-                                buffer.substring(matcher.start(), matcher.end()));
-                        builder.append(buffer.substring(matcher.end())); 
-                    } else {
-                        builder.append(buffer);
+                                buffer.substring(matcherCommand.start(), matcherCommand.end()));
+                        // builder.append(buffer.substring(matcherCommand.end()));
+                        
+                        if (!resultFile) {
+                            builder.append(buffer.substring(matcherCommand.end()));
+                            return builder.toAttributedString();
+                        }
+                    }
+
+
+                    if (resultFile) {
+                        int previousEnd;
+                        if (!resultCommand) {
+                            previousEnd = 0; 
+                        } else {
+                            previousEnd = matcherCommand.end();
+                        }
+
+                        if (previousEnd > matcherFiles.start()) {
+                            try {
+                                matcherFiles.find();
+                                builder.append(buffer.substring(previousEnd, matcherFiles.start()));
+                            } catch (IllegalStateException e) {
+                                return builder.append(buffer.substring(previousEnd)).toAttributedString();
+                            }
+                        } else {
+                            builder.append(buffer.substring(previousEnd, matcherFiles.start()));
+                        }
+
+                        builder.styled(
+                                AttributedStyle.BOLD.foreground(AttributedStyle.YELLOW),
+                                buffer.substring(matcherFiles.start(), matcherFiles.end()));
+                        builder.append(buffer.substring(matcherFiles.end())); 
                     }
                     return builder.toAttributedString();
                 }
@@ -105,42 +163,12 @@ class Main {
                 if (commandsList.containsKey(tokens[0])) {
                     state = commandsList.get(tokens[0].toLowerCase()).run(tokens);
                     consoleManager.getTerminal().flush();
-                } else {
+                } else if (tokens[0].isBlank()) {} else {
                     System.out.println("\u001B[31m" + input + " не распознано как имя команды. Введите help для справки." + "\u001B[0m");
                 }
             }
         } catch (IOException e) {
             System.err.println("Не удалось создать терминал: " + e.getMessage());
         }
-
-
-        // Scanner console = new Scanner(System.in, System.getProperty("sun.stdout.encoding", "UTF-8"));
-        // boolean state = true;
-        // Map<String, Command> commandsList = commandManager.getCommandsList();
-        // while (state) {
-        //     System.out.print("> ");
-        //     String input = console.nextLine().trim();
-        //     String[] tokens = input.split(" ");
-        //     if (commandsList.containsKey(tokens[0])) {
-        //         state = commandsList.get(tokens[0]).run(tokens);
-        //     } else {
-        //         System.out.println("\u001B[31m" + input + " не распознано как имя команды. Введите help для справки." + "\u001B[0m");
-        //     }
-        // }
-        // console.close();
     }
-
-//     public static ArrayList<String> removeEmptyStrings(String[] tokens) {
-//         ArrayList<String> tokensList = new ArrayList<>();
-//         System.out.println(tokensList);
-//         for (String string : tokensList) {
-//             if (string.isBlank()) {
-//                 tokensList.remove(string);
-//                 System.out.println("После удаления: " + tokensList);
-//             }
-//         }
-//         System.out.println("После удаления всех: " + tokensList);
-//         // String[] outTokens = tokensList.toArray(new String[1]);
-//         return tokensList;
-//     }
 }
