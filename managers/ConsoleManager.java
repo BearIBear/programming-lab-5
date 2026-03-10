@@ -14,6 +14,11 @@ import models.MusicBand;
 import models.MusicGenre;
 import models.Person;
 
+/**
+ * Менеджер для работы с консолью (JLine), получения полей объектов от пользователя
+ *
+ * @author Михаил
+ */
 public class ConsoleManager {
     private Terminal terminal;
     private LineReader reader;

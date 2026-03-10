@@ -7,6 +7,11 @@ import java.util.Arrays;
 import managers.CollectionManager;
 import models.MusicBand;
 
+/**
+ * Команда для вывода элементов, значение поля name которых содержит заданную подстроку
+ *
+ * @author Михаил
+ */
 public class FilterContainsName extends Command {
     public FilterContainsName(CollectionManager collectionManager, ConsoleManager consoleManager) {
         super("filter_contains_name", "вывести элементы, значение поля name которых содержит заданную подстроку", 1, collectionManager, consoleManager);

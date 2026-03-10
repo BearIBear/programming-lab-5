@@ -5,6 +5,11 @@ import managers.ConsoleManager;
 import managers.CollectionManager;
 import models.MusicBand;
 
+/**
+ * Команда для очистки коллекции
+ *
+ * @author Михаил
+ */
 public class Clear extends Command {
     public Clear(CollectionManager collectionManager, ConsoleManager consoleManager) {
         super("clear", "очистить коллекцию", 0, collectionManager, consoleManager);

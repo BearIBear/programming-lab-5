@@ -7,6 +7,11 @@ import java.util.Arrays;
 import managers.CollectionManager;
 import models.MusicBand;
 
+/**
+ * Команда для вывода элементов, значение поля genre которых больше заданного
+ *
+ * @author Михаил
+ */
 public class FilterGreaterThanGenre extends Command {
     public FilterGreaterThanGenre(CollectionManager collectionManager, ConsoleManager consoleManager) {
         super("filter_greater_than_genre", "вывести элементы, значение поля genre которых больше заданного", 1, collectionManager, consoleManager);

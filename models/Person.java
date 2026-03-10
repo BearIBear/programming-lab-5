@@ -1,6 +1,11 @@
 package models;
 import java.time.LocalDate;
 
+/**
+ * Класс, представляющий человека (например, фронтмена группы)
+ *
+ * @author Михаил
+ */
 public class Person {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private java.time.LocalDate birthday; //Поле может быть null

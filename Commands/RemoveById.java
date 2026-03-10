@@ -5,6 +5,11 @@ import managers.ConsoleManager;
 import managers.CollectionManager;
 import models.MusicBand;
 
+/**
+ * Команда для удаления элемента из коллекции по его id
+ *
+ * @author Михаил
+ */
 public class RemoveById extends Command {
     public RemoveById(CollectionManager collectionManager, ConsoleManager consoleManager) {
         super("remove_by_id", "удалить элемент из коллекции по его id", 1, collectionManager, consoleManager);

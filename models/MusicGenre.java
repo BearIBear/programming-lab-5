@@ -1,7 +1,9 @@
 package models;
 /**
-* Возможные музыкальные жанры
-*/
+ * Перечисление возможных музыкальных жанров
+ *
+ * @author Михаил
+ */
 public enum MusicGenre {
     PSYCHEDELIC_ROCK("PSYCHEDELIC_ROCK"),
     POP("POP"),

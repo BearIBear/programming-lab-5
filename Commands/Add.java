@@ -4,6 +4,11 @@ import managers.ConsoleManager;
 
 import managers.CollectionManager;
 
+/**
+ * Команда для добавления нового элемента в коллекцию
+ *
+ * @author Михаил
+ */
 public class Add extends Command {
     public Add(CollectionManager collectionManager, ConsoleManager consoleManager) {
         super("add", "добавить новый элемент в коллекцию", 0, collectionManager, consoleManager);

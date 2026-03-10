@@ -8,6 +8,11 @@ import java.util.function.Predicate;
 import managers.CollectionManager;
 import managers.CommandManager;
 
+/**
+ * Абстрактный базовый класс для всех команд
+ *
+ * @author Михаил
+ */
 public abstract class Command {
     protected final String name;
     private final String desc;

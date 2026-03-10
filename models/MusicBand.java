@@ -3,6 +3,11 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Класс, представляющий музыкальную группу
+ *
+ * @author Михаил
+ */
 public class MusicBand implements Comparable<MusicBand> {
     private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой

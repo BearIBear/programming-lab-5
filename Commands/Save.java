@@ -5,6 +5,11 @@ import managers.ConsoleManager;
 import managers.CollectionManager;
 import managers.FileManager;
 
+/**
+ * Команда для сохранения коллекции в файл
+ *
+ * @author Михаил
+ */
 public class Save extends Command {
     private FileManager fileManager;
 

@@ -25,6 +25,11 @@ import org.jline.builtins.Completers.FileNameCompleter;
 import commands.*;
 import managers.*;
 
+/**
+ * Главный класс приложения, содержащий точку входа и инициализацию компонентов JLine и команд
+ *
+ * @author Михаил
+ */
 class Main {
     public static void main(String[] args) {
         String fileName = System.getenv("INPUT_FILENAME");

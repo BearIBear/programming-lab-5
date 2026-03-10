@@ -7,6 +7,11 @@ import java.util.Arrays;
 import managers.CollectionManager;
 import models.MusicBand;
 
+/**
+ * Команда для вывода количества элементов, значение поля description которых меньше заданного
+ *
+ * @author Михаил
+ */
 public class CountLessThanDescription extends Command {
     public CountLessThanDescription(CollectionManager collectionManager, ConsoleManager consoleManager) {
         super("count_less_than_description", "вывести количество элементов, значение поля description которых меньше заданного", 1, collectionManager, consoleManager);

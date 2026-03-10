@@ -4,6 +4,11 @@ import managers.ConsoleManager;
 
 import managers.CollectionManager;
 
+/**
+ * Команда для вывода информации о коллекции (тип, количество элементов, дата инициализации)
+ *
+ * @author Михаил
+ */
 public class Info extends Command {
     public Info(CollectionManager collectionManager, ConsoleManager consoleManager) {
         super("info", "вывести информацию о коллекции", 0, collectionManager, consoleManager);
