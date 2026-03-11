@@ -21,7 +21,7 @@ public class FilterContainsName extends Command {
         }
 
         for (MusicBand band : collectionManager.getCollection()) {
-            if (band.getName().equals(newArgs[1])) {
+            if (band.getName().contains(newArgs[1])) {
                 consoleManager.getTerminal().writer().println(band);
             }
         }
