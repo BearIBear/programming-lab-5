@@ -29,6 +29,7 @@ public class FileManager {
         this.fileName = fileName;
         this.gson = new GsonBuilder()
                 .setPrettyPrinting()
+                .serializeSpecialFloatingPointValues()
                 .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
                 .create();
     }

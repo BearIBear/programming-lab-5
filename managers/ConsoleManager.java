@@ -90,7 +90,12 @@ public class ConsoleManager {
                 continue;
             }
             try {
-                return Float.parseFloat(input);
+                Float y = Float.parseFloat(input);
+                if (y.isInfinite()) {
+                    terminal.writer().println("y слишком большое!");
+                    continue;
+                }
+                return y;
             } catch (NumberFormatException e) {
                 terminal.writer().println("y должно быть типа float");
                 terminal.flush();
