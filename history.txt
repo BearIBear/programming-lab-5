@@ -77,3 +77,34 @@
 1773148785321:exit
 1773148807783:script file.txt
 1773148811835:exit
+1773167774691:script
+1773167776869:script script
+1773167779391:exit
+1773168036873:script script
+1773168037784:exit
+1773168312534:script script
+1773168313943:exit
+1773168367496:script script
+1773168369012:exitr
+1773168370974:exit
+1773168872843:script   script
+1773168879854:exit
+1773169132315:show
+1773169139027:help
+1773169157901:filter_contains_name Миха
+1773169168392:filter_contains_name Пупс
+1773169172026:exit
+1773169333730:count_less_than_description 0
+1773169336491:count_less_than_description a
+1773169339032:count_less_than_description и
+1773169341949:exit
+1773169622058:filter_greater_than_genre pop
+1773169624895:filter_greater_than_genre 1
+1773169638919:filter_greater_than_genre a
+1773169654476:exit
+1773169797416:filter_greater_than_genre a
+1773169800473:filter_greater_than_genre POP
+1773169806334:filter_greater_than_genre 1
+1773169809547:filter_greater_than_genre b
+1773169815159:filter_greater_than_genre PO
+1773169819045:exit

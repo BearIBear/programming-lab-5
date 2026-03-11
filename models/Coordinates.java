@@ -1,4 +1,10 @@
 package models;
+
+/**
+ * Класс, представляющий координаты (x, y)
+ *
+ * @author Михаил
+ */
 public class Coordinates {
     private Long x; //Максимальное значение поля: 432, Поле не может быть null
     private float y;

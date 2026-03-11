@@ -4,6 +4,11 @@ import managers.ConsoleManager;
 
 import managers.CollectionManager;
 
+/**
+ * Команда для вывода справки по доступным командам
+ *
+ * @author Михаил
+ */
 public class Help extends Command {
     public Help(CollectionManager collectionManager, ConsoleManager consoleManager) {
         super("help", "вывести справку по доступным командам", 0, collectionManager, consoleManager);

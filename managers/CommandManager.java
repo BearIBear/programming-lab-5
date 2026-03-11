@@ -7,6 +7,11 @@ import java.util.Map;
 
 import commands.Command;
 
+/**
+ * Менеджер для регистрации и исполнения команд
+ *
+ * @author Михаил
+ */
 public class CommandManager {
     private final Map<String, Command> commandsList = new HashMap<>();
     private ArrayList<File> scriptFiles = new ArrayList<>();

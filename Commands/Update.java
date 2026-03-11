@@ -9,6 +9,11 @@ import managers.CollectionManager;
 import managers.InputManager;
 import models.MusicBand;
 
+/**
+ * Команда для обновления значения элемента коллекции, id которого равен заданному
+ *
+ * @author Михаил
+ */
 public class Update extends Command {
     public Update(CollectionManager collectionManager, ConsoleManager consoleManager) {
         super("update", "обновить значение элемента коллекции, id которого равен заданному", 1, collectionManager, consoleManager);
@@ -16,6 +21,7 @@ public class Update extends Command {
 
     @Override
     public boolean run(String[] args) {
+        args = Command.RemoveEmptyElements(args);
         if (!checkArgAmount(args)) {
             return true;
         }

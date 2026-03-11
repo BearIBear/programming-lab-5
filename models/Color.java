@@ -1,7 +1,9 @@
 package models;
 /**
-* Возможные цвета
-*/
+ * Перечисление возможных цветов
+ *
+ * @author Михаил
+ */
 public enum Color {
     RED,
     BLACK,

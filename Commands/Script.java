@@ -9,6 +9,11 @@ import java.util.Scanner;
 
 import managers.CollectionManager;
 
+/**
+ * Команда для считывания и исполнения скрипта из указанного файла с контролем рекурсии
+ *
+ * @author Михаил
+ */
 public class Script extends Command {
     public Script(CollectionManager collectionManager, ConsoleManager consoleManager) {
         super("script", "считать и исполнить скрипт из указанного файла", 1, collectionManager, consoleManager);

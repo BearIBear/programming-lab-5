@@ -16,6 +16,11 @@ import java.time.LocalDate;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
+/**
+ * Менеджер для сохранения и загрузки коллекции из файла JSON с использованием Gson
+ *
+ * @author Михаил
+ */
 public class FileManager {
     private String fileName;
     private Gson gson;

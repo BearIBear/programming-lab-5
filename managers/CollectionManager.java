@@ -4,6 +4,11 @@ import models.MusicBand;
 import java.util.PriorityQueue;
 import java.time.LocalDateTime;
 
+/**
+ * Менеджер коллекции для управления элементами типа MusicBand
+ *
+ * @author Михаил
+ */
 public class CollectionManager {
     private PriorityQueue<MusicBand> collection;
     private LocalDateTime initTime;

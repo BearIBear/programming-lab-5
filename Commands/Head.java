@@ -3,6 +3,11 @@ package commands;
 import managers.ConsoleManager;
 import managers.CollectionManager;
 
+/**
+ * Команда для вывода первого элемента коллекции (head)
+ *
+ * @author Михаил
+ */
 public class Head extends Command {
     public Head(CollectionManager collectionManager, ConsoleManager consoleManager) {
         super("head", "вывести первый элемент коллекции", 0, collectionManager, consoleManager);

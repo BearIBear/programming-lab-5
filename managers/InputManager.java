@@ -12,6 +12,11 @@ import models.MusicBand;
 import models.MusicGenre;
 import models.Person;
 
+/**
+ * Менеджер ввода, использующий Scanner для чтения данных при исполнении скриптов
+ *
+ * @author Михаил
+ */
 public class InputManager {
     private Scanner scanner;
 

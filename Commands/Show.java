@@ -7,6 +7,11 @@ import java.util.PriorityQueue;
 import managers.CollectionManager;
 import models.MusicBand;
 
+/**
+ * Команда для вывода всех элементов коллекции в строковом представлении
+ *
+ * @author Михаил
+ */
 public class Show extends Command {
     public Show(CollectionManager collectionManager, ConsoleManager consoleManager) {
         super("show", "вывести в стандартный поток вывода все элементы коллекции в строковом представлении", 0, collectionManager, consoleManager);
